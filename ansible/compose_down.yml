@@ -1,0 +1,9 @@
+- name: Compose Down the containers
+  hosts: cloud_vm
+  become: true
+  tasks:
+    - name: Stop and remove existing containers
+      shell: |
+        cd /home/ubuntu/acit3855-project
+        docker compose down
+      ignore_errors: yes

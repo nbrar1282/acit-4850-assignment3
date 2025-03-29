@@ -1,7 +1,7 @@
 version: 1
 storage:
-  url: "{{ storage_url }}"  
+  url: http://dashboard/storage
 scheduler:
-  interval: "{{ scheduler_interval }}"  
+  interval: 5
 stats:
-  filename: "{{ stats_file }}" 
+  filename: ./data/stats.json

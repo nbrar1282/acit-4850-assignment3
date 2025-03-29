@@ -1,11 +1,9 @@
 version: 1
 events:
-  hostname: "{{ kafka_hostname }}"
-  port: "{{ kafka_port }}"
-  topic: "{{ kafka_topic }}"
-datastore:
-  user: "{{ db_user }}"  
-  password: "{{ db_password }}"  
-  hostname: "{{ db_hostname }}"  
-  port: "{{ db_port }}"  
-  db: "{{ db_name }}"  
+  hostname: kafka
+  port: 9092
+  topic: events
+  air:
+    url: http://dashboard/storage/city/airquality
+  traffic:
+    url: http://dashboard/storage/city/trafficflow

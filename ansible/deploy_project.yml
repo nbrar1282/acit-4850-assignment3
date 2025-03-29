@@ -1,0 +1,53 @@
+- name: Deploy ACIT 3855 Project
+  hosts: cloud_vm
+  become: true
+  tasks:
+    - name: Install Git (if not installed)
+      apt:
+        name: git
+        state: present
+    - name: Add GitHub to known hosts
+      shell: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      args:
+        executable: /bin/bash
+    - name: Clone or update Git repository
+      git:
+        repo: "git@github.com:nbrar1282/acit-4850-assignment3.git"
+        dest: "/home/ubuntu/acit-4850-assignment3"
+        key_file: "/home/ubuntu/.ssh/do-key"
+        update: yes
+        force: yes
+
+    # - name: Deploy Secure Config Files
+    #   ansible.builtin.copy:
+    #     src: ../config/{{ item }}/app_conf_test.yml
+    #     dest: /home/ubuntu/acit3855-project/config/{{ item }}/app_conf.yml
+    #     owner: ubuntu
+    #     group: ubuntu
+    #     mode: '0644'
+    #   with_items:
+    #     - analyzer
+    #     - processing
+    #     - receiver
+    #     - storage
+    
+    - name: Run Docker Compose
+      shell: |
+        cd /home/ubuntu/acit3855-project
+        docker compose up -d
+
+    - name: Ensure logs directory exists and set permissions
+      file:
+        path: "/home/ubuntu/acit3855-project/logs"
+        state: directory
+        owner: nobody
+        group: nogroup
+
+    - name: Ensure processing data directory exists and set permissions
+      file:
+        path: "/home/ubuntu/acit3855-project/data/processing"
+        state: directory
+        owner: nobody
+        group: nogroup
+
+    

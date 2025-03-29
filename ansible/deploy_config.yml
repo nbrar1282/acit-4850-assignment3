@@ -1,0 +1,16 @@
+- name: Deploy Secure Config Files
+  hosts: cloud_vm
+  become: true
+  tasks:
+    - name: Copy and rename production config files
+      ansible.builtin.copy:
+        src: ../config/{{ item }}/app_conf_test.yml  # Source on host
+        dest: /home/ubuntu/acit3855-project/config/{{ item }}/app_conf.yml  # Destination in VM
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+      with_items:
+        - analyzer
+        - processing
+        - receiver
+        - storage
