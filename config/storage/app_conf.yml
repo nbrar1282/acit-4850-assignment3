@@ -1,0 +1,11 @@
+version: 1
+events:
+  hostname: random
+  port: random
+  topic: random
+datastore:
+  user: random
+  password: random
+  hostname: random
+  port: random
+  db: random
